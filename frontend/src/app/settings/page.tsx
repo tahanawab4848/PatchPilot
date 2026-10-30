@@ -36,18 +36,26 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="p-8 max-w-xl">
-      <h1 className="text-xl font-semibold text-text-primary mb-6">Settings</h1>
+    <div className="p-8 max-w-2xl mx-auto space-y-6 animate-fade-in">
+      <div className="border-b border-border/80 pb-5">
+        <h1 className="text-2xl font-bold tracking-tight text-text-primary">Configuration & Engine Status</h1>
+        <p className="text-sm text-text-secondary mt-1">
+          Verify runtime connectivity to the Nebius Token Factory inference provider and sandboxed test execution environment.
+        </p>
+      </div>
 
       <section className="space-y-4">
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-text-muted">
-          Model configuration
-        </h2>
+        <div className="flex items-center gap-2">
+          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-text-muted font-mono">
+            Model Configuration
+          </h2>
+        </div>
 
         {loading ? (
-          <div className="h-24 rounded-md bg-surface-1 border border-border animate-pulse" />
+          <div className="h-28 rounded-lg bg-surface-1/70 border border-border/80 animate-pulse" />
         ) : (
-          <div className="rounded-md border border-border bg-surface-1 p-4 space-y-3 text-xs">
+          <div className="rounded-lg border border-border/80 bg-surface-1/90 p-5 space-y-3.5 text-xs shadow-xs backdrop-blur-xs">
             <Row label="Model" value={health?.nebius.model_id ?? "—"} mono />
             <Row label="Endpoint" value={health?.nebius.base_url ?? "—"} mono />
             <Row
@@ -58,45 +66,50 @@ export default function SettingsPage() {
 
             {modelStatus.reachable !== undefined && (
               <div
-                className={`mt-2 rounded-sm px-2 py-1.5 text-xs ${
+                className={`mt-2 rounded-md p-2.5 text-xs font-mono flex items-center gap-2 ${
                   modelStatus.reachable
-                    ? "bg-status-success/10 text-status-success border border-status-success/30"
+                    ? "bg-status-success/10 text-status-success border border-status-success/30 shadow-[0_0_10px_rgba(52,211,153,0.15)]"
                     : "bg-status-error/10 text-status-error border border-status-error/30"
                 }`}
               >
+                <span className={`h-2 w-2 rounded-full ${modelStatus.reachable ? "bg-status-success" : "bg-status-error"}`} />
                 {modelStatus.reachable
-                  ? "Model endpoint reachable."
+                  ? "Model endpoint reachable & verified."
                   : `Unreachable: ${modelStatus.error}`}
               </div>
             )}
 
-            <button
-              type="button"
-              onClick={checkModel}
-              disabled={checking || !health?.nebius.configured}
-              className="mt-2 rounded border border-border bg-surface-2 px-3 py-1.5 text-xs text-text-secondary hover:bg-surface-3 disabled:opacity-50 transition-colors"
-            >
-              {checking ? "Checking…" : "Test model connection"}
-            </button>
+            <div className="pt-2 flex items-center justify-between">
+              <button
+                type="button"
+                onClick={checkModel}
+                disabled={checking || !health?.nebius.configured}
+                className="rounded-md border border-border/80 bg-surface-2/80 px-3.5 py-1.5 text-xs font-medium text-text-primary hover:bg-surface-3 hover:border-accent/40 disabled:opacity-50 transition-all duration-150 shadow-xs"
+              >
+                {checking ? "Checking inference connection…" : "Test model connection"}
+              </button>
 
-            {!health?.nebius.configured && (
-              <p className="text-text-muted">
-                Set <code className="font-mono bg-surface-2 px-1 rounded">NEBIUS_API_KEY</code> in{" "}
-                <code className="font-mono bg-surface-2 px-1 rounded">.env</code> to enable inference.
-              </p>
-            )}
+              {!health?.nebius.configured && (
+                <p className="text-[11px] text-text-muted font-mono">
+                  Set <code className="bg-surface-2 px-1 py-0.5 rounded text-accent">NEBIUS_API_KEY</code> in <code className="bg-surface-2 px-1 py-0.5 rounded">.env</code>
+                </p>
+              )}
+            </div>
           </div>
         )}
 
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-text-muted pt-2">
-          Infrastructure
-        </h2>
+        <div className="flex items-center gap-2 pt-4">
+          <span className="h-1.5 w-1.5 rounded-full bg-status-info" />
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-text-muted font-mono">
+            Infrastructure & Sandboxing
+          </h2>
+        </div>
 
         {health && (
-          <div className="rounded-md border border-border bg-surface-1 p-4 space-y-3 text-xs">
+          <div className="rounded-lg border border-border/80 bg-surface-1/90 p-5 space-y-3.5 text-xs shadow-xs backdrop-blur-xs">
             <Row
               label="Database"
-              value={health.database.ok ? "Connected" : `Error: ${health.database.error}`}
+              value={health.database.ok ? "Connected (Healthy)" : `Error: ${health.database.error}`}
               accent={health.database.ok}
             />
             <Row
@@ -104,7 +117,7 @@ export default function SettingsPage() {
               value={
                 health.sandbox.enabled
                   ? health.sandbox.available
-                    ? "Docker available"
+                    ? "Docker daemon operational"
                     : "Docker not available on this host"
                   : "Disabled"
               }

@@ -92,37 +92,48 @@ export function ReasoningConsole({ job }: ReasoningConsoleProps) {
   const lines = thoughts.split("\n");
 
   return (
-    <div className="rounded-md border border-border bg-[#0b0f17] overflow-hidden flex flex-col font-mono shadow-md">
+    <div className={`rounded-lg border overflow-hidden flex flex-col font-mono shadow-md transition-all duration-200 ${
+      isActive
+        ? "border-accent/40 bg-[#090d15] shadow-glow-sm"
+        : "border-border/80 bg-[#090d15]"
+    }`}>
       {/* Console Header Bar */}
-      <div className="flex items-center justify-between border-b border-border/60 bg-[#111827] px-3.5 py-2 text-xs">
-        <div className="flex items-center gap-2.5">
+      <div className="flex items-center justify-between border-b border-border/80 bg-surface-1/90 px-3.5 py-2.5 text-xs">
+        <div className="flex items-center gap-3">
+          {/* Terminal Dots */}
           <div className="flex items-center gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-status-error/70" />
+            <span className="h-2.5 w-2.5 rounded-full bg-status-warning/70" />
+            <span className="h-2.5 w-2.5 rounded-full bg-status-success/70" />
+          </div>
+
+          <div className="flex items-center gap-2">
             <span
-              className={`h-2 w-2 rounded-full ${
+              className={`h-2 w-2 rounded-full transition-all ${
                 isActive
-                  ? "bg-status-success animate-pulse shadow-xs shadow-status-success/50"
-                  : "bg-text-muted"
+                  ? "bg-accent animate-ping"
+                  : "bg-text-muted/60"
               }`}
             />
-            <span className="font-semibold text-text-primary text-[11px] uppercase tracking-wider flex items-center gap-1.5">
+            <span className="font-semibold text-text-primary text-[11px] uppercase tracking-wider flex items-center gap-1.5 font-sans">
               <Terminal className="h-3.5 w-3.5 text-accent" />
               Live Nemotron-70B Reasoning Console
             </span>
           </div>
 
-          <span className="hidden sm:inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded bg-accent/15 text-accent border border-accent/30 font-medium">
+          <span className="hidden sm:inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/25 font-medium shadow-inner-glow">
             <Zap className="h-2.5 w-2.5 fill-accent" />
             Nebius Token Factory (FP8 HGX H100)
           </span>
         </div>
 
-        <div className="flex items-center gap-2">
-          <label className="text-[10px] text-text-muted flex items-center gap-1 cursor-pointer select-none">
+        <div className="flex items-center gap-3">
+          <label className="text-[11px] text-text-muted hover:text-text-secondary flex items-center gap-1.5 cursor-pointer select-none transition-colors">
             <input
               type="checkbox"
               checked={autoScroll}
               onChange={(e) => setAutoScroll(e.target.checked)}
-              className="rounded bg-surface-2 border-border text-accent focus:ring-0 h-3 w-3"
+              className="rounded bg-surface-2 border-border text-accent focus:ring-0 h-3 w-3 accent-accent"
             />
             <span>Auto-scroll</span>
           </label>
@@ -131,7 +142,7 @@ export function ReasoningConsole({ job }: ReasoningConsoleProps) {
             variant="ghost"
             size="sm"
             onClick={handleCopy}
-            className="h-6 px-2 text-[10px] text-text-muted hover:text-text-primary hover:bg-surface-2 gap-1"
+            className="h-6 px-2 text-[10px] text-text-muted hover:text-text-primary hover:bg-surface-2 gap-1 rounded"
           >
             {copied ? (
               <>

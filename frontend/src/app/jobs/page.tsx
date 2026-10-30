@@ -63,43 +63,49 @@ export default function JobsPage() {
   }, []);
 
   return (
-    <div className="p-8 max-w-5xl">
-      <div className="flex items-center justify-between mb-6">
+    <div className="p-8 max-w-5xl mx-auto space-y-6 animate-fade-in">
+      <div className="flex items-center justify-between border-b border-border/80 pb-5">
         <div>
-          <h1 className="text-xl font-semibold text-text-primary">Job History</h1>
+          <div className="flex items-center gap-2 text-accent mb-1.5">
+            <Clock className="h-5 w-5" />
+            <span className="text-xs font-mono uppercase tracking-wider font-semibold">
+              Execution Logs & History
+            </span>
+          </div>
+          <h1 className="text-2xl font-bold tracking-tight text-text-primary">Job History</h1>
           <p className="text-sm text-text-secondary mt-0.5">
-            All debugging investigations
+            Audit trail of autonomous debugging sessions, patch proposals, and sandboxed test verifications.
           </p>
         </div>
-        <Button asChild size="sm">
+        <Button asChild size="default" className="gap-2">
           <Link href="/jobs/new">
-            <Plus className="h-3.5 w-3.5" />
-            New investigation
+            <Plus className="h-4 w-4" />
+            New Investigation
           </Link>
         </Button>
       </div>
 
       {loading && (
-        <div className="space-y-2">
-          {[...Array(5)].map((_, i) => (
+        <div className="space-y-3">
+          {[...Array(4)].map((_, i) => (
             <div
               key={i}
-              className="h-[72px] rounded-md bg-surface-1 border border-border animate-pulse"
+              className="h-[76px] rounded-lg bg-surface-1/70 border border-border/80 animate-pulse"
             />
           ))}
         </div>
       )}
 
       {error && (
-        <div className="rounded-md border border-status-error/30 bg-status-error/10 p-4 text-sm text-status-error">
+        <div className="rounded-lg border border-status-error/40 bg-status-error/10 p-4 text-sm text-status-error shadow-xs">
           {error}
         </div>
       )}
 
       {!loading && !error && jobs.length === 0 && (
-        <div className="rounded-md border border-border bg-surface-1 p-10 text-center">
-          <Clock className="h-8 w-8 text-text-muted mx-auto mb-3" />
-          <p className="text-sm text-text-secondary mb-4">No investigations yet.</p>
+        <div className="rounded-lg border border-dashed border-border/80 bg-surface-1/40 p-12 text-center space-y-3">
+          <Clock className="h-10 w-10 text-text-muted mx-auto mb-2 opacity-50" />
+          <p className="text-sm font-medium text-text-secondary">No investigations recorded yet.</p>
           <Button asChild variant="outline" size="sm">
             <Link href="/jobs/new">Start your first investigation</Link>
           </Button>
@@ -107,25 +113,25 @@ export default function JobsPage() {
       )}
 
       {!loading && jobs.length > 0 && (
-        <div className="space-y-1.5">
+        <div className="space-y-2.5">
           {jobs.map((job) => {
             const duration = calcDuration(job.created_at, job.updated_at);
             return (
               <Link
                 key={job.id}
                 href={`/jobs/${job.id}`}
-                className="flex items-center gap-4 rounded-md border border-border bg-surface-1 px-4 py-3 hover:bg-surface-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                className="group flex items-center gap-4 rounded-lg border border-border/80 bg-surface-1/90 px-4 py-3.5 hover:bg-surface-2/80 hover:border-accent/40 hover:shadow-glow-sm transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               >
                 {/* LEFT: repo + badges */}
-                <div className="flex flex-col gap-1 shrink-0 min-w-[180px] max-w-[220px]">
+                <div className="flex flex-col gap-1.5 shrink-0 min-w-[190px] max-w-[230px]">
                   <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="text-sm font-semibold text-text-primary truncate">
+                    <span className="text-sm font-semibold text-text-primary group-hover:text-accent transition-colors truncate">
                       {job.repo_name}
                     </span>
                   </div>
-                  <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-border bg-surface-2 text-text-muted">
-                      <GitBranch className="h-2.5 w-2.5 inline-block mr-0.5 -mt-0.5" />
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border border-border/80 bg-surface-2 text-text-muted">
+                      <GitBranch className="h-2.5 w-2.5 inline-block mr-1 -mt-0.5" />
                       {job.repo_source}
                     </span>
                     <StatusBadge status={job.status} />
@@ -133,25 +139,25 @@ export default function JobsPage() {
                 </div>
 
                 {/* MIDDLE: bug description */}
-                <p className="flex-1 text-xs text-text-secondary truncate min-w-0">
+                <p className="flex-1 text-xs text-text-secondary group-hover:text-text-primary transition-colors truncate min-w-0 font-mono">
                   {job.bug_description}
                 </p>
 
                 {/* RIGHT: date + duration + iterations */}
-                <div className="flex flex-col items-end gap-1 shrink-0 text-right">
+                <div className="flex flex-col items-end gap-1 shrink-0 text-right font-mono">
                   <span className="text-[11px] text-text-muted">
                     {formatDate(job.created_at)}
                   </span>
                   <div className="flex items-center gap-2">
                     {duration && (
-                      <span className="text-[10px] font-mono text-text-muted flex items-center gap-0.5">
-                        <Clock className="h-2.5 w-2.5" />
+                      <span className="text-[10px] text-text-muted flex items-center gap-1">
+                        <Clock className="h-2.5 w-2.5 text-accent" />
                         {duration}
                       </span>
                     )}
                     {job.repair_iterations > 0 && (
-                      <span className="text-[10px] font-mono text-text-muted flex items-center gap-0.5">
-                        <Repeat2 className="h-2.5 w-2.5" />
+                      <span className="text-[10px] text-text-muted flex items-center gap-1">
+                        <Repeat2 className="h-2.5 w-2.5 text-status-warning" />
                         {job.repair_iterations}x
                       </span>
                     )}

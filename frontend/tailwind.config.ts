@@ -11,54 +11,66 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Engineering workbench palette
+        // Modern engineering dark palette
         surface: {
-          DEFAULT: "#0f1117",
-          1: "#161b22",
-          2: "#1c2128",
-          3: "#22272e",
+          DEFAULT: "#0b0f17",
+          1: "#111722",
+          2: "#182030",
+          3: "#1f2a3f",
+          card: "#121826",
         },
         border: {
-          DEFAULT: "#30363d",
-          subtle: "#21262d",
+          DEFAULT: "#232e42",
+          subtle: "#1a2232",
+          accent: "rgba(0, 188, 212, 0.3)",
         },
         accent: {
           DEFAULT: "#00bcd4",
-          muted: "#006978",
-          bright: "#18ffff",
+          muted: "#087383",
+          bright: "#22d3ee",
+          glow: "rgba(0, 188, 212, 0.15)",
         },
         status: {
-          success: "#3fb950",
-          warning: "#d29922",
-          error: "#f85149",
-          info: "#58a6ff",
-          neutral: "#8b949e",
+          success: "#34d399",
+          warning: "#fbbf24",
+          error: "#f87171",
+          info: "#60a5fa",
+          neutral: "#94a3b8",
         },
         text: {
-          primary: "#e6edf3",
-          secondary: "#8b949e",
-          muted: "#484f58",
-          link: "#58a6ff",
+          primary: "#f1f5f9",
+          secondary: "#94a3b8",
+          muted: "#64748b",
+          link: "#38bdf8",
         },
       },
       fontFamily: {
         mono: ["JetBrains Mono", "Fira Code", "Consolas", "monospace"],
-        sans: ["Inter", "system-ui", "sans-serif"],
+        sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+      },
+      boxShadow: {
+        "glow-sm": "0 0 15px -3px rgba(0, 188, 212, 0.2)",
+        "glow-md": "0 0 25px -4px rgba(0, 188, 212, 0.25)",
+        "glow-lg": "0 0 40px -5px rgba(0, 188, 212, 0.35)",
+        "glow-success": "0 0 20px -4px rgba(52, 211, 153, 0.3)",
+        "inner-glow": "inset 0 1px 0 0 rgba(255, 255, 255, 0.05)",
       },
       borderRadius: {
+        xl: "0.75rem",
         lg: "0.5rem",
         md: "0.375rem",
         sm: "0.25rem",
       },
       animation: {
-        "fade-in": "fadeIn 0.2s ease-in-out",
-        "slide-in": "slideIn 0.2s ease-out",
-        "pulse-subtle": "pulseSubtle 2s ease-in-out infinite",
+        "fade-in": "fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
+        "slide-in": "slideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
+        "pulse-subtle": "pulseSubtle 2.5s ease-in-out infinite",
+        "shimmer": "shimmer 2s linear infinite",
       },
       keyframes: {
         fadeIn: {
-          "0%": { opacity: "0" },
-          "100%": { opacity: "1" },
+          "0%": { opacity: "0", transform: "translateY(4px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
         slideIn: {
           "0%": { transform: "translateY(-8px)", opacity: "0" },
@@ -66,7 +78,11 @@ const config: Config = {
         },
         pulseSubtle: {
           "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.6" },
+          "50%": { opacity: "0.5" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
         },
       },
     },

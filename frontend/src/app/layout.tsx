@@ -18,8 +18,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} font-sans bg-surface min-h-screen`}>
-        <div className="flex h-screen overflow-hidden">
+      <body className={`${inter.variable} font-sans bg-surface text-text-primary min-h-screen antialiased selection:bg-accent/20`}>
+        <div className="flex h-screen overflow-hidden ambient-bg">
           <AppNav />
           <main className="flex-1 overflow-y-auto" id="main-content">
             {children}

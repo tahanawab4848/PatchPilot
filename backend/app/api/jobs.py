@@ -24,6 +24,7 @@ from app.schemas.job import (
     JobDetail,
     JobStatus,
     JobSummary,
+    PatchApproval,
     PatchApprovalRequest,
 )
 from app.services.job_service import JobNotFoundError, JobService

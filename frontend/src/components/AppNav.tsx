@@ -69,20 +69,20 @@ export function AppNav() {
         aria-label="Main navigation"
       >
         {/* Brand header */}
-        <div className="flex items-center gap-2.5 px-4 py-4 border-b border-border bg-surface-1/80">
-          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-accent/15 border border-accent/30 shadow-inner">
-            <Bug className="h-4 w-4 text-accent" />
+        <div className="flex items-center gap-3 px-4 py-4 border-b border-border/80 bg-surface-1/90 backdrop-blur-xs">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-accent/25 to-accent/5 border border-accent/40 shadow-glow-sm">
+            <Bug className="h-4 w-4 text-accent animate-pulse-subtle" />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
               <span className="text-sm font-semibold tracking-tight text-text-primary">
                 PatchPilot
               </span>
-              <span className="rounded bg-accent/15 px-1 py-0.2 text-[9px] font-mono text-accent font-medium">
+              <span className="rounded-full bg-accent/15 px-1.5 py-0.5 text-[9px] font-mono text-accent font-semibold border border-accent/20">
                 v0.1
               </span>
             </div>
-            <p className="text-[10px] text-text-muted leading-tight font-mono">
+            <p className="text-[10px] text-text-muted leading-tight font-mono tracking-tight">
               Self-Healing Engineer
             </p>
           </div>
@@ -94,10 +94,10 @@ export function AppNav() {
             <Link
               href={`/jobs/${activeJobId}`}
               className={cn(
-                "group flex items-center justify-between gap-2 rounded border px-2.5 py-1.5 text-xs transition-all",
+                "group flex items-center justify-between gap-2 rounded-md border px-2.5 py-2 text-xs transition-all shadow-xs",
                 pathname === `/jobs/${activeJobId}`
-                  ? "border-accent bg-accent/15 text-accent"
-                  : "border-status-info/40 bg-status-info/10 text-status-info hover:border-status-info hover:bg-status-info/15"
+                  ? "border-accent bg-accent/15 text-accent shadow-glow-sm font-medium"
+                  : "border-status-info/40 bg-status-info/10 text-status-info hover:border-status-info/70 hover:bg-status-info/15"
               )}
             >
               <div className="flex items-center gap-2 min-w-0">
@@ -109,7 +109,7 @@ export function AppNav() {
                   Job {activeJobId.slice(0, 8)}…
                 </span>
               </div>
-              <Activity className="h-3 w-3 shrink-0 opacity-70 group-hover:opacity-100" />
+              <Activity className="h-3 w-3 shrink-0 opacity-70 group-hover:opacity-100 animate-spin" />
             </Link>
           </div>
         )}
@@ -124,15 +124,15 @@ export function AppNav() {
                 <Link
                   href={href}
                   className={cn(
-                    "flex items-center gap-2.5 rounded px-3 py-2 text-xs font-medium transition-colors",
+                    "flex items-center gap-2.5 rounded-md px-3 py-2 text-xs font-medium transition-all duration-150",
                     "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent",
                     active
-                      ? "bg-accent/10 text-accent border border-accent/20"
-                      : "text-text-secondary hover:bg-surface-2 hover:text-text-primary"
+                      ? "bg-gradient-to-r from-accent/15 to-accent/5 text-accent border border-accent/30 shadow-xs font-semibold"
+                      : "text-text-secondary hover:bg-surface-2/80 hover:text-text-primary"
                   )}
                   aria-current={active ? "page" : undefined}
                 >
-                  <Icon className="h-3.5 w-3.5 shrink-0" />
+                  <Icon className={cn("h-4 w-4 shrink-0 transition-transform duration-150", active ? "text-accent scale-105" : "text-text-muted group-hover:text-text-secondary")} />
                   <span>{label}</span>
                 </Link>
               </li>

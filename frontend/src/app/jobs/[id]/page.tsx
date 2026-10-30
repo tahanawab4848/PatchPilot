@@ -1,7 +1,8 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import {
   Activity,
   AlertCircle,
@@ -40,9 +41,10 @@ type CenterTab = "patch" | "reasoning" | "file" | "verification";
 export default function JobDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params?: { id?: string };
 }) {
-  const { id } = use(params);
+  const routeParams = useParams();
+  const id = (routeParams?.id as string) ?? params?.id ?? "";
   const { job, loading, error, isConnected, refresh } = useJob(id);
 
   const [activeTab, setActiveTab] = useState<CenterTab>("reasoning");

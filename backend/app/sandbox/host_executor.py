@@ -32,8 +32,8 @@ from app.schemas.execution import CommandStatus, ExecutionResult
 log = get_logger(__name__)
 
 # Path prefix that is considered "safe" for host demo execution
-# (Only the bundled demo_projects directory)
-_SAFE_DEMO_PREFIXES = ["demo_projects", "demo-projects"]
+# (The bundled demo_projects directory and isolated patched workspaces)
+_SAFE_DEMO_PREFIXES = ["demo_projects", "demo-projects", "workspaces"]
 
 
 class HostExecutor:

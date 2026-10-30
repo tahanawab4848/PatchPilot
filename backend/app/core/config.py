@@ -64,7 +64,7 @@ class Settings(BaseSettings):
     ollama_model_id: str = "llama3.1:8b"
 
     # ── Demo Sandbox (host execution, trusted demo projects only) ───────────────
-    sandbox_allow_host_execution_for_demo: bool = False
+    sandbox_allow_host_execution_for_demo: bool = True
 
     @field_validator("allowed_origins", mode="before")
     @classmethod

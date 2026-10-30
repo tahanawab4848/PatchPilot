@@ -32,7 +32,7 @@ export function JobTimeline({ job }: JobTimelineProps) {
   const isFailed = job.status === "failed" || job.status === "cancelled";
 
   return (
-    <div className="space-y-0.5">
+    <div className="space-y-1">
       {STAGES.map((stage, idx) => {
         const done = idx < current && !isFailed;
         const active = idx === current && !isFailed;
@@ -43,54 +43,67 @@ export function JobTimeline({ job }: JobTimelineProps) {
         const event = job.events.find((e) => e.stage === stage.key);
 
         return (
-          <div key={stage.key} className="flex items-start gap-3 py-1.5">
-            {/* Icon */}
+          <div key={stage.key} className="flex items-start gap-3 py-1.5 group">
+            {/* Icon & connecting line */}
             <div className="relative flex flex-col items-center">
               {done && (
-                <CheckCircle2 className="h-4 w-4 text-status-success mt-0.5" />
+                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-status-success/15 text-status-success border border-status-success/30 shadow-[0_0_10px_rgba(52,211,153,0.3)]">
+                  <CheckCircle2 className="h-3.5 w-3.5" />
+                </div>
               )}
               {active && !failed && (
-                <Loader2 className="h-4 w-4 text-accent mt-0.5 animate-spin" />
+                <div className="relative flex h-5 w-5 items-center justify-center rounded-full bg-accent/20 text-accent border border-accent shadow-glow-sm">
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                  <span className="absolute -inset-1 rounded-full bg-accent/20 animate-ping opacity-75" />
+                </div>
               )}
               {failed && idx === current && (
-                <XCircle className="h-4 w-4 text-status-error mt-0.5" />
+                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-status-error/15 text-status-error border border-status-error/40 shadow-[0_0_10px_rgba(248,113,113,0.3)]">
+                  <XCircle className="h-3.5 w-3.5" />
+                </div>
               )}
               {pending && (
-                <Circle className="h-4 w-4 text-border mt-0.5" />
+                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-surface-2 text-border border border-border/80">
+                  <Circle className="h-2.5 w-2.5 text-text-muted/40 fill-text-muted/20" />
+                </div>
               )}
               {idx < STAGES.length - 1 && (
                 <div
-                  className={`w-px h-4 mt-0.5 ${
-                    done ? "bg-status-success/30" : "bg-border"
+                  className={`w-0.5 h-5 mt-1 transition-colors ${
+                    done
+                      ? "bg-gradient-to-b from-status-success/50 to-status-success/20"
+                      : active
+                        ? "bg-gradient-to-b from-accent/50 to-border/40"
+                        : "bg-border/40"
                   }`}
                 />
               )}
             </div>
 
             {/* Label */}
-            <div className="flex-1 min-w-0">
-              <div className="flex items-baseline gap-2">
+            <div className="flex-1 min-w-0 pt-0.5">
+              <div className="flex items-baseline justify-between gap-2">
                 <span
-                  className={`text-xs font-medium ${
+                  className={`text-xs font-medium transition-colors ${
                     done
                       ? "text-text-primary"
                       : active
-                        ? "text-accent"
+                        ? "text-accent font-semibold"
                         : failed && idx === current
-                          ? "text-status-error"
+                          ? "text-status-error font-semibold"
                           : "text-text-muted"
                   }`}
                 >
                   {stage.label}
                 </span>
                 {event?.created_at && (
-                  <span className="text-[10px] text-text-muted shrink-0">
+                  <span className="text-[10px] text-text-muted shrink-0 font-mono">
                     {formatDate(event.created_at)}
                   </span>
                 )}
               </div>
               {event?.message && (
-                <p className="text-[11px] text-text-secondary mt-0.5 truncate">
+                <p className="text-[11px] text-text-secondary mt-0.5 truncate font-mono">
                   {event.message}
                 </p>
               )}
@@ -101,7 +114,11 @@ export function JobTimeline({ job }: JobTimelineProps) {
 
       {/* Failed/cancelled extra info */}
       {isFailed && job.error_message && (
-        <div className="mt-2 rounded-sm border border-status-error/30 bg-status-error/10 p-2 text-xs text-status-error">
+        <div className="mt-3 rounded-lg border border-status-error/40 bg-status-error/10 p-3 text-xs text-status-error shadow-xs">
+          <div className="font-semibold mb-1 flex items-center gap-1.5">
+            <XCircle className="h-3.5 w-3.5" />
+            Execution Failure
+          </div>
           {job.error_message}
         </div>
       )}

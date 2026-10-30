@@ -97,49 +97,49 @@ export function PatchReview({ job, onDecision }: PatchReviewProps) {
 
       {/* NVIDIA Nemotron Dual-Pass Reasoner & Critic */}
       {job.nemotron_critique && (
-        <div className="rounded-md border border-accent/40 bg-accent/5 p-3.5 space-y-2.5">
+        <div className="rounded-lg border border-accent/40 bg-gradient-to-b from-accent/10 to-surface-1 p-4 space-y-3 shadow-glow-sm">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="p-1 rounded bg-accent/20 text-accent">
-                <Cpu className="h-3.5 w-3.5" />
+            <div className="flex items-center gap-2.5">
+              <span className="p-1.5 rounded-md bg-accent/20 text-accent border border-accent/30 shadow-inner-glow">
+                <Cpu className="h-4 w-4" />
               </span>
               <div>
                 <span className="text-xs font-semibold text-text-primary">
                   NVIDIA Nemotron Dual-Pass Reasoner & Critic
                 </span>
-                <span className="ml-2 text-[10px] font-mono px-1.5 py-0.2 rounded bg-surface-2 border border-border text-accent">
+                <span className="ml-2 text-[10px] font-mono px-2 py-0.5 rounded-full bg-surface-2 border border-border text-accent font-medium">
                   HelpSteer2 Reward Model
                 </span>
               </div>
             </div>
 
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-status-success/40 bg-status-success/15 text-status-success font-semibold flex items-center gap-1">
-              <ShieldCheck className="h-3 w-3" />
+            <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full border border-status-success/40 bg-status-success/15 text-status-success font-semibold flex items-center gap-1 shadow-glow-success">
+              <ShieldCheck className="h-3.5 w-3.5" />
               {job.nemotron_critique.verdict}
             </span>
           </div>
 
-          <p className="text-xs text-text-secondary leading-snug">
+          <p className="text-xs text-text-secondary leading-relaxed">
             {job.nemotron_critique.verdict_summary}
           </p>
 
           {/* HelpSteer2 Rubric Metrics */}
-          <div className="grid grid-cols-3 gap-2 pt-1 font-mono text-[11px]">
-            <div className="p-2 rounded bg-surface-1 border border-border/70 flex flex-col items-center">
+          <div className="grid grid-cols-3 gap-2.5 pt-1 font-mono text-[11px]">
+            <div className="p-2.5 rounded-lg bg-surface-1/90 border border-border/70 flex flex-col items-center shadow-xs">
               <span className="text-[10px] text-text-muted">Correctness</span>
-              <span className="font-bold text-status-success text-xs mt-0.5">
+              <span className="font-bold text-status-success text-sm mt-0.5">
                 {job.nemotron_critique.helpsteer_scores.correctness}/5
               </span>
             </div>
-            <div className="p-2 rounded bg-surface-1 border border-border/70 flex flex-col items-center">
+            <div className="p-2.5 rounded-lg bg-surface-1/90 border border-border/70 flex flex-col items-center shadow-xs">
               <span className="text-[10px] text-text-muted">Coherence</span>
-              <span className="font-bold text-accent text-xs mt-0.5">
+              <span className="font-bold text-accent text-sm mt-0.5">
                 {job.nemotron_critique.helpsteer_scores.coherence}/5
               </span>
             </div>
-            <div className="p-2 rounded bg-surface-1 border border-border/70 flex flex-col items-center">
+            <div className="p-2.5 rounded-lg bg-surface-1/90 border border-border/70 flex flex-col items-center shadow-xs">
               <span className="text-[10px] text-text-muted">Safety</span>
-              <span className="font-bold text-status-success text-xs mt-0.5">
+              <span className="font-bold text-status-success text-sm mt-0.5">
                 {job.nemotron_critique.helpsteer_scores.safety}/5
               </span>
             </div>

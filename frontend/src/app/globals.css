@@ -11,32 +11,55 @@
     @apply bg-surface text-text-primary;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    selection-background-color: rgba(0, 188, 212, 0.25);
   }
 
-  /* Focus ring that's accessible but doesn't clash with dark UI */
+  ::selection {
+    background-color: rgba(0, 188, 212, 0.25);
+    color: #f1f5f9;
+  }
+
+  /* Focus ring that's accessible and sleek */
   *:focus-visible {
-    @apply outline-none ring-2 ring-accent ring-offset-1 ring-offset-surface;
+    @apply outline-none ring-2 ring-accent/80 ring-offset-2 ring-offset-surface;
   }
 
-  /* Scrollbar styling */
+  /* Sleek modern scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    @apply bg-surface-1;
+    background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    @apply rounded bg-border;
+    background: rgba(100, 116, 139, 0.25);
+    border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-text-muted;
+    background: rgba(100, 116, 139, 0.45);
   }
 
-  /* Code blocks */
+  /* Code blocks & monospace */
   code, pre, .font-mono {
     font-feature-settings: "liga" 0;
   }
+}
+
+/* Subtle background ambient mesh glow */
+.ambient-bg {
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(0, 188, 212, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(56, 189, 248, 0.04) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(30, 41, 59, 0.4) 0px, transparent 50%);
+}
+
+/* Glassmorphism panel styling */
+.glass-panel {
+  background: rgba(17, 23, 34, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 /* Reduced motion */

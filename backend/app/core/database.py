@@ -60,6 +60,11 @@ def init_db() -> None:
             ("nemotron_critique", "TEXT"),
             ("nebius_telemetry", "TEXT"),
             ("reasoning_log", "TEXT"),
+            ("patch_approval", "VARCHAR(16)"),
+            ("patch_feedback", "TEXT"),
+            ("repair_report", "TEXT"),
+            ("error_message", "TEXT"),
+            ("repair_iterations", "INTEGER DEFAULT 0"),
         ]:
             try:
                 conn.exec_driver_sql(f"ALTER TABLE jobs ADD COLUMN {col} {col_type};")

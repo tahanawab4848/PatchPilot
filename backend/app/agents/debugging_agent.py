@@ -111,6 +111,7 @@ class DebuggingAgent:
         self._model_failures: int = 0
         self._sandbox_failures: int = 0
         self._baseline_reproduced: bool = False
+        self._is_demo: bool = False
 
     async def run(self) -> None:
         """
@@ -151,6 +152,7 @@ class DebuggingAgent:
 
     async def _run_pipeline(self, db: Session) -> None:
         job = self._job_svc.get_job(db, self.job_id)
+        self._is_demo = (job.repo_source == "demo")
 
         # ── Stage A: Repository reconnaissance ────────────────────────────────
         self._event(db, "analyzing", "started", "Inspecting repository structure")
@@ -815,7 +817,7 @@ class DebuggingAgent:
         """Run the test suite and return a parsed TestRunResult."""
         test_frameworks = index.metadata.test_frameworks
         primary_framework = test_frameworks[0].name if test_frameworks else "pytest"
-        is_demo = "demo_projects" in str(repo_root.resolve()).lower() or "demo-projects" in str(repo_root.resolve()).lower()
+        is_demo = self._is_demo or "demo_projects" in str(repo_root.resolve()).lower() or "demo-projects" in str(repo_root.resolve()).lower()
 
         if primary_framework in ("jest", "vitest"):
             jest_runner = JestTestRunner()

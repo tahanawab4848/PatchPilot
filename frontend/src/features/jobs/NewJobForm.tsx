@@ -166,13 +166,13 @@ export function NewJobForm() {
               setError(null);
               setBugDescription(DEMO_BUG_DESCRIPTION);
             }}
-            className={`flex items-start gap-3 rounded-md border p-3 text-left transition-all ${
+            className={`flex items-start gap-3 rounded-lg border p-3.5 text-left transition-all duration-150 ${
               mode === "demo"
-                ? "border-accent bg-accent/10 shadow-xs ring-1 ring-accent/30"
-                : "border-border bg-surface-1 hover:bg-surface-2 text-text-secondary"
+                ? "border-accent bg-accent/10 shadow-glow-sm ring-1 ring-accent/40"
+                : "border-border/80 bg-surface-1/90 hover:bg-surface-2/80 hover:border-border text-text-secondary"
             }`}
           >
-            <div className={`mt-0.5 rounded p-1.5 ${mode === "demo" ? "bg-accent/20 text-accent" : "bg-surface-2 text-text-muted"}`}>
+            <div className={`mt-0.5 rounded-md p-2 transition-colors ${mode === "demo" ? "bg-accent/20 text-accent" : "bg-surface-2 text-text-muted"}`}>
               <FlaskConical className="h-4 w-4" />
             </div>
             <div>
@@ -194,13 +194,13 @@ export function NewJobForm() {
                 setBugDescription("");
               }
             }}
-            className={`flex items-start gap-3 rounded-md border p-3 text-left transition-all ${
+            className={`flex items-start gap-3 rounded-lg border p-3.5 text-left transition-all duration-150 ${
               mode === "upload"
-                ? "border-accent bg-accent/10 shadow-xs ring-1 ring-accent/30"
-                : "border-border bg-surface-1 hover:bg-surface-2 text-text-secondary"
+                ? "border-accent bg-accent/10 shadow-glow-sm ring-1 ring-accent/40"
+                : "border-border/80 bg-surface-1/90 hover:bg-surface-2/80 hover:border-border text-text-secondary"
             }`}
           >
-            <div className={`mt-0.5 rounded p-1.5 ${mode === "upload" ? "bg-accent/20 text-accent" : "bg-surface-2 text-text-muted"}`}>
+            <div className={`mt-0.5 rounded-md p-2 transition-colors ${mode === "upload" ? "bg-accent/20 text-accent" : "bg-surface-2 text-text-muted"}`}>
               <Upload className="h-4 w-4" />
             </div>
             <div>
@@ -476,19 +476,19 @@ function ProfilePill({
     <button
       type="button"
       onClick={onClick}
-      className={`rounded border p-2.5 text-left transition-colors ${
+      className={`rounded-lg border p-3 text-left transition-all duration-150 ${
         active
-          ? "border-accent bg-accent/10 ring-1 ring-accent/30"
-          : "border-border bg-surface-1 hover:bg-surface-2 text-text-secondary"
+          ? "border-accent bg-accent/10 shadow-glow-sm ring-1 ring-accent/40"
+          : "border-border/80 bg-surface-1/90 hover:bg-surface-2/80 hover:border-border text-text-secondary"
       }`}
     >
-      <div className="flex items-center gap-1.5 mb-1">
-        <Icon className={`h-3.5 w-3.5 ${active ? "text-accent" : "text-text-muted"}`} />
+      <div className="flex items-center gap-2 mb-1">
+        <Icon className={`h-4 w-4 ${active ? "text-accent" : "text-text-muted"}`} />
         <span className={`text-xs font-semibold ${active ? "text-text-primary" : "text-text-secondary"}`}>
           {label}
         </span>
       </div>
-      <p className="text-[10px] text-text-muted leading-tight">{desc}</p>
+      <p className="text-[11px] text-text-muted leading-relaxed">{desc}</p>
     </button>
   );
 }
