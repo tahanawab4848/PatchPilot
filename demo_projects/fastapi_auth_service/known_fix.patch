@@ -1,0 +1,7 @@
+--- a/src/auth.py
++++ b/src/auth.py
+@@ -58,3 +58,3 @@
+     # Tokens whose expiration is in the future are erroneously treated as expired!
+-    if payload.get("exp") is not None and payload["exp"] > time.time():
++    if payload.get("exp") is not None and payload["exp"] < time.time():
+         raise TokenExpiredError("Token has expired")

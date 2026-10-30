@@ -1,0 +1,12 @@
+{
+  "name": "typescript-state-cart",
+  "version": "1.0.0",
+  "description": "E-Commerce Shopping Cart with state mutation bug under concurrent pricing calculations",
+  "main": "src/cart.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

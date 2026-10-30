@@ -1,0 +1,23 @@
+--- a/src/cart.js
++++ b/src/cart.js
+@@ -12,9 +12,14 @@
+-  // DEFECT: Mutates cart.items in-place instead of creating an immutable copy
+-  cart.items.forEach(item => {
+-    item.price = Math.round(item.price * (1 - discountPercent / 100) * 100) / 100;
+-  });
+-
+-  cart.discountPercent = discountPercent;
+-  cart.total = calculateSubtotal(cart.items);
+-  return cart;
++  // Clone items immutably without mutating original item references
++  const discountedItems = cart.items.map(item => ({
++    ...item,
++    price: Math.round(item.price * (1 - discountPercent / 100) * 100) / 100,
++  }));
++
++  return {
++    ...cart,
++    items: discountedItems,
++    discountPercent,
++    total: calculateSubtotal(discountedItems),
++  };

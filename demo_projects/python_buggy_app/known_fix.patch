@@ -1,0 +1,10 @@
+--- a/src/calculator.py
++++ b/src/calculator.py
+@@ -23,7 +23,7 @@ def divide(a: float, b: float) -> float:
+     BUG: Returns 0.0 instead of raising ZeroDivisionError when b == 0.
+     This was introduced in commit abc1234 when the guard was accidentally removed.
+     """
+     if b == 0:
+-        return 0.0   # <-- BUG: should raise ZeroDivisionError("division by zero")
++        raise ZeroDivisionError("division by zero")
+     return a / b
